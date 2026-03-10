@@ -1,10 +1,28 @@
 const curry = (fn) => {
 
-    return (a) => (b) => fn(a, b);
+    return function (a) {
+
+        return function (b) {
+
+            return fn(a, b);
+
+        }
+
+    }
+
+    //return (a) => (b) => fn(a, b);
 
 };
 
 const sum = (a, b) => a + b;
 
-const curriedSum = curry(sum);
 
+function make() {
+
+    console.log(
+        curry(sum)(1)(2)
+    );
+
+}
+
+make();

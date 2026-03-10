@@ -6,4 +6,12 @@ const PROPS = {
     IMAGES: { name: 'images', initial: [] }
 }
 
-Object.values(PROPS).reduce((a, v) => ({ ...a, [v.name]: v.initial}), {});
+function make() {
+
+    console.log(
+        Object.values(PROPS).reduce((a, v) => ({ ...a, [v.name]: v.initial}), {})
+    );
+
+}
+
+make();
