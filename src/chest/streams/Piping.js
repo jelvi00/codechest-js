@@ -21,7 +21,8 @@ const server = net.createServer((socket) => {
     pipeline(
         socket,
         transform, //new PassThrough()
-        writable, (error) => error && console.log('VAL1', error)
+        writable,
+        (error) => error && console.log('VAL1', error)
     );
 
     socket.on('end', () => {
