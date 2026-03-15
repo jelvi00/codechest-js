@@ -3,7 +3,9 @@
 import { useBears } from "@/app/bears/state/state";
 import React, { Suspense, useCallback, useMemo } from "react";
 import { BearsDisplay } from "@/app/bears/components/bears-display";
-import { BearsForestStatus } from "@/app/bears/components/bear-forest";
+import { BearForestStatus } from "@/app/bears/components/bear-forest";
+import { Header } from "@/components/header";
+import { Page } from "@/components/page";
 
 export default function Bears() {
 
@@ -12,41 +14,38 @@ export default function Bears() {
     const actions = useMemo(() => ([
         { label: 'Buy me a bear', onClick: increasePop },
         { label: 'Get a bear', onClick: decreasePop },
-        { label: 'Clear forest', onClick: removeAllBears},
-        { label: 'There are 2 bears', onClick: () => updateBears(2)},
+        { label: 'Clear forest', onClick: removeAllBears },
+        { label: 'There are 2 bears', onClick: () => updateBears(2) },
     ]), []);
 
     const showStateActions = useCallback(() => {
         return actions.map(({ label, onClick }, index) => (
             <button key={'_' + index}
-                    className={styles.buy_button}
+                    className={styles.btn}
                     onClick={onClick}>
                 {label}
             </button>
         ));
     }, [ actions ]);
 
-
-
     return (
-        <div className={styles.page}>
-            <main className={styles.main}>
-                <h1 className="text-4xl font-bold">Bears</h1>
-                <p className="text-2xl">There are {bears} bears in the forest.</p>
-                <BearsDisplay/>
-                <Suspense fallback={<div>Loading forest status...</div>}>
-                    <BearsForestStatus noBearsMessage={'No bears in the forest'}/>
-                </Suspense>
-                <section className="flex flex-row items-center1 justify-center gap-4">
-                    {showStateActions()}
-                </section>
-            </main>
-        </div>
+        <Page>
+            <Header
+                current={"Bears"}
+                direction={"right"}
+                to={{ label: "Cats", href: "/cats" }}/>
+            <p className="text-2xl">There {bears != 1 ? 'are' : 'is'} {bears} bear{bears != 1 ? 's' : ''} in the forest.</p>
+            <BearsDisplay/>
+            <Suspense fallback={<div>Loading forest status...</div>}>
+                <BearForestStatus noBearsMessage={'No bears in the forest'}/>
+            </Suspense>
+            <section className="flex flex-row items-center justify-center gap-4">
+                {showStateActions()}
+            </section>
+        </Page>
     );
 }
 
 const styles = {
-    page: "flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black",
-    main: "flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start",
-    buy_button: "mt-4 rounded-md bg-black px-4 py-2 text-white, border"
+    btn: "mt-4 rounded-md bg-black px-4 py-2 text-white border cursor-pointer"
 };

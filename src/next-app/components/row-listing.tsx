@@ -8,10 +8,10 @@ export type ListingProps<T> = {
 
 
 
-export default function Listing<T extends ReactNode>({ items, renderItem }: ListingProps<T>) {
+export default function RowListing<T extends ReactNode>({ items, renderItem }: ListingProps<T>) {
 
     return (
-        <ul className="flex flex-row gap-2">
+        <ul className="flex flex-row gap-2 flex-wrap">
             {
                 items
                     .map((item) => <li key={item.id}>{renderItem(item)}</li>)

@@ -14,7 +14,7 @@ export type BearState = {
 
 export const useBears = create(
     subscribeWithSelector<BearState>(
-        (set, get) => ({
+        (set) => ({
             bears: 0,
             increasePop: () => set((state) => ({ bears: state.bears + 1 })),
             decreasePop: () => set((state) => (state.bears ? { bears: state.bears - 1 } : {})),

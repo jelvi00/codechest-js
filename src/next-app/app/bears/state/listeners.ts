@@ -9,7 +9,7 @@ export async function getForestStatus(state?: StoreApi<BearState>) {
 
     const { getState, setState } = state;
 
-    const bears = getState()?.bears;
+    const { bears } = getState();
 
     setState({
         forestStatus: wait(2000)

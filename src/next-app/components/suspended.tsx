@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 
 
 export function suspended<T>(
-    WrappedLoose: (props: T) => React.ReactElement<T>,
+    WrappedLoose: (props: T) => React.ReactNode,
     fallback: React.ReactNode
 ) {
 

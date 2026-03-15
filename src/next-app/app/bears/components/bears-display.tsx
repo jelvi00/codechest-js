@@ -1,11 +1,11 @@
 import { useBears } from "@/app/bears/state/state";
 import { useMemo } from "react";
-import Listing, { ListingProps } from "@/components/listing";
+import RowListing, { ListingProps } from "@/components/row-listing";
 import { BearName } from "@/app/bears/components/bear-name";
 import { containerized } from "@/components/containerized";
 
 
-const BearsContainer = containerized<ListingProps<{ id: string }>>(Listing);
+const BearsContainer = containerized<ListingProps<{ id: string }>>(RowListing);
 
 const withIdObject = () => ({ id: Math.random().toString(36).substring(2) })
 
