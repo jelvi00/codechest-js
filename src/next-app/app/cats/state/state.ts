@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { withSelectorSubscription } from "@/util/zustand.util";
 import { deployCats } from "./listeners";
+import { useReducer } from "react";
 
 export type CatState = {
     cats: number;
@@ -32,3 +33,22 @@ export const useCats = create(
 withSelectorSubscription(useCats, 'deployingCats', deployCats)
 
 useCats.subscribe((state, prevState) => console.log("cats state updated"));
+
+
+//const [ { cats }, dispatch ] = withCatsReducer();
+export const withCatsReducer = () => {
+
+    const initialState = { cats: 0 };
+
+    const actions = {
+        'increment': (state: typeof initialState) => ({ cats: state.cats + 1}),
+        'decrement': (state: typeof initialState) => ({ cats: state.cats - 1}),
+        'clear': () => initialState,
+    };
+
+    return useReducer(
+        (state, action: { type: keyof typeof actions }) => actions[action.type](state) ?? state,
+        initialState
+    );
+
+}

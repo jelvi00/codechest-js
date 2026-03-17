@@ -9,7 +9,7 @@ export type BearState = {
     decreasePop: () => void;
     removeAllBears: () => void;
     updateBears: (newBears: number) => void;
-    forestStatus: Promise<string | undefined>;
+    forestStatus: Promise<string | void>;
 }
 
 export const useBears = create(

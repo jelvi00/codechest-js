@@ -5,6 +5,7 @@ import { Page } from "@/components/page";
 import React, { useCallback, useMemo } from "react";
 import { useCats } from "@/app/cats/state/state";
 import { suspended } from "@/components/suspended";
+import { CatDeploymentToggle } from "./components/cat-deployment-toggle";
 
 const CatListing = suspended(
     React.lazy(() => import('./components/cat-list')),
@@ -65,6 +66,10 @@ export default function Cats() {
             </section>
             <section className="flex flex-row items-center justify-center gap-4">
                 {showStateActions()}
+                <CatDeploymentToggle>
+                    <CatDeploymentToggle.Deploy/>
+                    <CatDeploymentToggle.Undeploy/>
+                </CatDeploymentToggle>
             </section>
         </Page>
     );
