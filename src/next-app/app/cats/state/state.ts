@@ -30,7 +30,8 @@ export const useCats = create(
     )
 );
 
-withSelectorSubscription(useCats, 'deployingCats', deployCats)
+withSelectorSubscription(useCats, 'cats', deployCats);
+withSelectorSubscription(useCats, 'deployingCats', deployCats);
 
 useCats.subscribe((state, prevState) => console.log("cats state updated"));
 

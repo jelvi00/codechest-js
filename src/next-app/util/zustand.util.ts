@@ -7,10 +7,10 @@ type StoreWithSelector<T> = StoreApi<T> & StoreSubscribeWithSelector<T>;
 export function withSelectorSubscription<T>(
     store: StoreWithSelector<T>,
     selector: keyof T,
-    listener: (store: StoreWithSelector<T>) => Promise<unknown>
+    listener: (store?: StoreWithSelector<T>, previousState?: T[keyof T]) => Promise<unknown>
 ) {
     store.subscribe(
         (state) => state[selector],
-        () => listener(store)
+        (_, previousState) => listener(store, previousState)
     );
 }

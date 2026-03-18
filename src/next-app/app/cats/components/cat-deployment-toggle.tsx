@@ -17,7 +17,7 @@ CatDeploymentToggle.Deploy = function() {
 
     const { deployingCats, toggleCatsDeployment } = useContext(CatContext)!;
 
-    return deployingCats ? (
+    return !deployingCats ? (
         <button className={styles.btn} onClick={toggleCatsDeployment}>
             {"Deploy cats"}
         </button>
@@ -29,7 +29,7 @@ CatDeploymentToggle.Undeploy = function() {
 
     const { deployingCats, toggleCatsDeployment } = useContext(CatContext)!;
 
-    return !deployingCats ? (
+    return deployingCats ? (
         <button className={styles.btn} onClick={toggleCatsDeployment}>
             {"Undeploy cats"}
         </button>
