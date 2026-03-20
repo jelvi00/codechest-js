@@ -6,6 +6,8 @@ import React, { useCallback, useMemo } from "react";
 import { useCats } from "@/app/cats/state/state";
 import { CatDeploymentToggle } from "./cat-deployment-toggle";
 import dynamic from "next/dynamic";
+import { CatAddInput } from "@/app/cats/components/cats-input";
+import { useSocket } from "@/hook/use-socket";
 
 const CatListing = dynamic(
     () => import('./cat-list'),
@@ -19,9 +21,23 @@ const CatListing = dynamic(
     }
 );
 
+const withEventHandling = (eventHandling: [string, () => void][]) => {
+
+    return {
+        url: "http://localhost:3000/cats",
+        eventHandling,
+        opts: { rejectUnauthorized: false, delay: 500 }
+    }
+};
+
 export default function CatsContent() {
 
     const { cats, deployingCats, increasePop, decreasePop, removeAllCats, realizing } = useCats();
+
+    const socket = useSocket(withEventHandling([
+        [ "increase", () => increasePop() ],
+        [ "clear", () => removeAllCats() ],
+    ]));
 
     const actions = useMemo(() => ([
         { label: 'Find me a cat', onClick: increasePop },
@@ -71,6 +87,9 @@ export default function CatsContent() {
                     <CatDeploymentToggle.Deploy/>
                     <CatDeploymentToggle.Undeploy/>
                 </CatDeploymentToggle>
+            </section>
+            <section className="flex flex-row items-center justify-center gap-4">
+                <CatAddInput/>
             </section>
         </Page>
     );

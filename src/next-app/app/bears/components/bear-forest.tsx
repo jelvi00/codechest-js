@@ -8,7 +8,7 @@ type BearsForestStatusProps = { noBearsMessage?: string };
 export const BearForestStatus = suspended<BearsForestStatusProps>(
     ({ noBearsMessage }) => {
         const { forestStatus } = useBears();
-        const message: Awaited<string | undefined> = use(forestStatus);
+        const message: Awaited<string | void> = use(forestStatus);
         return (<span>{message || noBearsMessage}</span>);
     },
     <>

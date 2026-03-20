@@ -11,6 +11,7 @@ export type CatState = {
     decreasePop: () => void;
     removeAllCats: () => void;
     realizing: () => string;
+    setCats: (cats: number) => void;
     toggleCatsDeployment: () => void;
     deployedCats: Promise<unknown[] | void>;
 }
@@ -24,6 +25,7 @@ export const useCats = create(
             decreasePop: () => set((state) => (state.cats ? { cats: state.cats - 1 } : {})),
             removeAllCats: () => set({ cats: 0 }),
             realizing: () => get().cats > 4 ? "Cats will rule the world." : "Not that much cats.",
+            setCats: (cats) => set({ cats }),
             toggleCatsDeployment: () => set({ deployingCats: !get().deployingCats }),
             deployedCats: deployCats()
         })
